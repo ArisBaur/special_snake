@@ -20,13 +20,8 @@ public class ZombieSpawner : MonoBehaviour
     {
         if (Time.time >= nextSpawnTime)
         {
-            SpawnEnemy();
+            GameObject enemy = Instantiate(zombiePrefab, transform.position, Quaternion.identity);
             nextSpawnTime = Time.time + spawnInterval;
         }
-    }
-
-    void SpawnEnemy()
-    {
-        GameObject enemy = Instantiate(zombiePrefab, transform.position, Quaternion.identity);
     }
 }

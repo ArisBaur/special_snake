@@ -1,31 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SnakeController_aris : MonoBehaviour
 {
-    private float speed = 5f; // movement speed of the snake
-    private float turnSpeed = 90f; // turning speed of the snake
+    [SerializeField] private float speed = 5f; // movement speed of the snake
+    [SerializeField] private float turnSpeed = 90f; // turning speed of the snake
+    private int turnDir;
+    private int size = 1;
+    private float current_size = 1;
 
-    void Update()
+
+    private void Update()
     {
-        // check for key input
-        if (Input.GetKey(KeyCode.A))
-        {
-            // turn the snake left
-            transform.Rotate(0, -turnSpeed * Time.deltaTime, 0);
+        turnDir = (int)Input.GetAxisRaw("Horizontal");
+        if (Input.GetKey(KeyCode.R)) {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-        if (Input.GetKey(KeyCode.D))
-        {
-            // turn the snake right
-            transform.Rotate(0, turnSpeed * Time.deltaTime, 0);
+    }
+
+
+    private void FixedUpdate()
+    {
+        //rotate
+        transform.Rotate(0, turnDir * turnSpeed, 0);
+        //translate
+        transform.Translate(0, 0, speed);
+    }
+
+
+    public void eat()
+    {
+        size += 1;
+        current_size = Mathf.Pow(0.99f, size) / 24;
+        speed += current_size;
+        transform.localScale += new Vector3(current_size, current_size, current_size);
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "DEATH") {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-
-        // move the snake
-        transform.Translate(0, 0, speed * Time.deltaTime);
-
-        //// make the snake move in the direction it is facing
-        //Vector3 moveDirection = transform.forward;
-        //GetComponent<Rigidbody>().velocity = moveDirection * speed;
     }
 }
