@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SnakeController : MonoBehaviour
+public class SnakeController_aris : MonoBehaviour
 {
     private float speed = 5f; // movement speed of the snake
     private float turnSpeed = 90f; // turning speed of the snake
@@ -24,7 +24,8 @@ public class SnakeController : MonoBehaviour
         // move the snake
         transform.Translate(0, 0, speed * Time.deltaTime);
 
-        // make the snake move in the direction it is facing
-        Vector3 moveDirection = transform.forward;
+        //// make the snake move in the direction it is facing
+        //Vector3 moveDirection = transform.forward;
+        //GetComponent<Rigidbody>().velocity = moveDirection * speed;
     }
 }
