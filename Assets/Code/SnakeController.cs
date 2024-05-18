@@ -26,6 +26,5 @@ public class SnakeController : MonoBehaviour
 
         // make the snake move in the direction it is facing
         Vector3 moveDirection = transform.forward;
-        GetComponent<Rigidbody>().velocity = moveDirection * speed;
     }
 }
